@@ -140,3 +140,76 @@ GROUP BY
 
 
 --- PIVOT --- 
+
+
+SELECT  model_year, COUNT(*)
+FROM product.product
+GROUP BY model_year
+
+
+-- model yýllarýna göre toplam ürün sayýsý
+SELECT *
+FROM
+			(
+			SELECT product_id, Model_Year
+			FROM product.product
+			) A
+PIVOT
+(
+	count(product_id)
+	FOR Model_Year IN
+	(
+	[2018], [2019], [2020], [2021]
+	)
+) AS PIVOT_TABLE
+
+-----------------------------------------------
+-----------------------------------------------
+
+SELECT *
+FROM
+			(
+			SELECT category_id, Model_Year, product_id
+			FROM product.product
+			) A
+PIVOT
+(
+	count(product_id)
+	FOR Model_Year IN
+	(
+	[2018], [2019], [2020], [2021]
+	)
+) AS PIVOT_TABLE
+
+----------------------------------------------
+----------------------------------------------
+
+SELECT *
+FROM
+			(
+			SELECT category_id, Model_Year, product_id
+			FROM product.product
+			) A
+PIVOT
+(
+	count(product_id)
+	FOR Model_Year IN
+	(
+	[2018], [2019], [2020], [2021]
+	)
+) AS PIVOT_TABLE
+UNION ALL
+SELECT NULL, *
+FROM
+			(
+			SELECT Model_Year, product_id
+			FROM product.product
+			) A
+PIVOT
+(
+	count(product_id)
+	FOR Model_Year IN
+	(
+	[2018], [2019], [2020], [2021]
+	)
+) AS PIVOT_TABLE
