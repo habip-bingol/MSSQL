@@ -52,3 +52,27 @@ ON A.product_id = B.product_id
 ORDER BY 1
 
 
+
+-----Alternative
+
+WITH T1 AS
+(
+SELECT product_id, discount, SUM(quantity) total_qua
+FROM SALE.order_item
+GROUP BY product_id, discount
+), T2 AS (
+SELECT * , 
+	FIRST_VALUE(total_qua) OVER(PARTITION BY product_id ORDER BY discount) lower_dis_quan,
+	LAST_VALUE(total_qua) OVER(PARTITION BY product_id ORDER BY discount ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) higher_dis_quan
+FROM T1
+), T3 AS(
+SELECT distinct product_id , 1.0*(higher_dis_quan-lower_dis_quan)/lower_dis_quan increase_rate
+FROM T2
+)
+SELECT product_id,
+		CASE 
+			WHEN increase_rate >= 0.05 THEN 'Positive'
+			WHEN increase_rate <= -0.05 THEN 'Positive'
+			ELSE 'neutral'
+			END
+FROM T3
