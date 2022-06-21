@@ -1,4 +1,4 @@
-            ----- WİNDOW FUNCTIONS-----
+            ----- WÃNDOW FUNCTIONS-----
 
 -- Write a query that returns stock amounts of products (only stock table)
 
@@ -13,7 +13,7 @@ SELECT distinct product_id,
 FROM product.stock
 ORDER BY product_id
 
--- Markalara göre ortalama ürün fiyatlarını hem Group By hem de Window Functions ile hesaplayınız.
+-- Markalara gÃ¶re ortalama Ã¼rÃ¼n fiyatlarÃ½nÃ½ hem Group By hem de Window Functions ile hesaplayÃ½nÃ½z.
 
 SELECT pb.brand_id, AVG(list_price)
 FROM product.product pp, product.brand pb
@@ -47,8 +47,8 @@ ORDER BY brand_id, category_id, model_year
 
 -- Window Frames
 
--- Windows frame i anlamak için birkaç örnek:
--- Herbir satırda işlem yapılacak olan frame in büyüklüğünü (satır sayısını) tespit edip window frame in nasıl oluştuğunu aşağıdaki sorgu sonucuna göre konuşalım.
+-- Windows frame i anlamak iÃ§in birkaÃ§ Ã¶rnek:
+-- Herbir satÃ½rda iÃ¾lem yapÃ½lacak olan frame in bÃ¼yÃ¼klÃ¼Ã°Ã¼nÃ¼ (satÃ½r sayÃ½sÃ½nÃ½) tespit edip window frame in nasÃ½l oluÃ¾tuÃ°unu aÃ¾aÃ°Ã½daki sorgu sonucuna gÃ¶re konuÃ¾alÃ½m.
 
 
 SELECT	category_id, product_id,
@@ -83,6 +83,7 @@ SELECT COUNT(distinct product_id) UniqueProduct
 FROM sale.order_item
 
 
+-- Use of DISTINCT is not allowed with the OVER clause.
 SELECT	count(distinct product_id) over() UniqueProduct
 FROM	sale.order_item
 
